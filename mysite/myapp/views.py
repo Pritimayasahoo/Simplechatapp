@@ -42,15 +42,18 @@ def Loginuser(request):
         email=request.POST['email']
         password=request.POST['password']
         user=CustomUser.objects.filter(email=email).first()
-        if user and check_password(password, user.password):
-            print(user)
-            my_user=auth.authenticate(email=email,password=password)
-            auth.login(request,my_user)
-            request.session['email'] = email
-            return redirect('/')
-        else:
+        if user:
+           if user and check_password(password, user.password):
+                print(user)
+                my_user=auth.authenticate(email=email,password=password)
+                auth.login(request,my_user)
+                request.session['email'] = email
+                return redirect('/')
+           else:
             messages.info(request,'SOME THING WENT WRONG')
-            return redirect('login') 
+            return redirect('login')
+        messages.info(request,'SOME THING WENT WRONG')
+        return redirect('login') 
     return render(request,'login.html')
 
 def createaccount(request):
