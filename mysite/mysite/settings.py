@@ -78,8 +78,8 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'render',
-        'USER': 'render',
+        'NAME': 'temperature_9oe8',
+        'USER': 'pritimaya',
         'PASSWORD': 'T1cKtb60WX1CRKbqj9LYGCwEui4NhVPK',
         'HOST': 'postgres://pritimaya:T1cKtb60WX1CRKbqj9LYGCwEui4NhVPK@dpg-cimd8slgkuvgvhf4lse0-a/temperature_9oe8',
         'PORT': '5432',
