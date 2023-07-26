@@ -54,23 +54,35 @@
           .form-group input[type="submit"]:hover {
             background-color: #45a049;
           }
-        
+          #message{
+            color:red;
+            font-size:15px;
+          }
           @media(max-width: 1000px) {
             .container {
-              max-width: 150%;
+              max-width: 100%;
               padding: 50px;
               border-radius:7px;
-              height:500px;
+              height:350px;
               background-color:lightgrey;
-              width:800px;
+              width:600px;
               margin:0px;
             }
-            .form-group input[type="submit"] {
-              width: 73%;
+            .form-group  {
+              width:100%;
               border-radius: 3px;
-              margin-left:110px;
-              margin-top:15px;
+              margin-left:12px;
+              margin-top:45px;
               
+            }
+            #roombutton{
+              width:90px;
+              border-radius:5px;
+              border: 1px solid green;
+              margin-top:-20px;
+            }
+            #home{
+              margin-top:30px;
             }
           }
           
@@ -84,11 +96,11 @@
 <body>
 	<div class="container">
         {% for message in messages %}
-        <h5>{{message}}</h5>
+        <h5 id='message'>{{message}}</h5>
         {% endfor %}
 <form class="login-form" action="" method="POST">
     {% csrf_token %}
-    <h2>My home</h2>
+    <h2 id='home'>My home</h2>
     <div class="form-group">
         <input type="text" name="room" placeholder="Enter Room name" required>
     </div>
@@ -96,7 +108,7 @@
         <input type="password" name="password" placeholder="Enter Room password" required>
     </div>
     <div class="form-group">
-        <button type="submit">Login</button>
+        <button id="roombutton" type="submit">GO ROOM</button>
     </div>
 </form>
 </div>

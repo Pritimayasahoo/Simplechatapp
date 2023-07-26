@@ -51,7 +51,7 @@ class Room(models.Model):
 class Message(models.Model):
     message=models.CharField(max_length=10000,blank=True)    
     roomname=models.CharField(max_length=1000,blank=True)
-    posttime=models.DateField(default=datetime.now)
+    posttime=models.DateTimeField(default=datetime.now)
     user=models.CharField(max_length=100)    
 
 class Account(models.Model):
