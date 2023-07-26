@@ -1,0 +1,188 @@
+<head>
+    <style>
+    /* Style for the message container */
+  /* Style for the message container */
+  .message-container {
+    background-color: #f2f2f2;
+    padding: 10px;
+    height:300px; /* Add a maximum height with overflow-y to create a scrollbar */
+    overflow-y: auto;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding-bottom:20px;
+    /* Set the height of the empty element to create initial scroll position */
+    scroll-padding-bottom: 1000px; /* Set to a large value to ensure initial scroll */
+  }
+  
+  /* Style for each message */
+  .message {
+    background-color: #2196F3;
+    color: #fff;
+    padding: 5px 10px;
+    margin-bottom: 5px;
+    border-radius: 5px;
+    background-color: #2196F3;
+    color: #fff;
+  padding: 5px 10px;
+  margin-bottom: 5px;
+  border-radius: 5px;
+  word-wrap: break-word; /* Add this property to allow long words to wrap */
+  }
+  
+  /* Style for the sender's messages */
+  .message.sent {
+    background-color: #4CAF50;
+  }
+  
+  /* Style for the receiver's messages */
+  .message.received {
+    background-color: #f44336;
+  }
+  
+  /* Style for the empty element used for initial scroll position */
+  .scroll-to-bottom {
+    visibility: hidden;
+  }
+  /* Some basic styles for the message container and messages */
+  #messagebox {
+    height:400px;
+    overflow-y: auto; /* Enable vertical scrollbar when content overflows */
+    border: 1px solid #ccc;
+    padding: 10px;
+  
+    /* Scroll to the bottom by default */
+    scroll-behavior: smooth;
+    scroll-snap-type: y mandatory;
+  }
+  input[type="text"] {
+    width: 800px; /* Set the width to 300 pixels */
+    height: 50px; /* Set the height to 50 pixels */
+    font-size: 16px; /* Set the font size */
+    padding: 10px; /* Add some padding for better appearance */
+  }
+  #send{
+    width:50px; /* Set the width to 300 pixels */
+    height:50px; /* Set the height to 50 pixels */
+    font-size:16px; 
+    border-radius:7px;
+    border: 2px solid green;
+    color: green;
+    background-color: white;
+     /* Add transition to create a smooth hover effect */
+  transition: border-color 0.3s ease;
+  }
+  #send:hover {
+    border-color: darkgreen;
+    background-color: green;
+    color: white;
+  }
+  @media(max-width: 1100px) {
+    #messagebox{
+      height:1900px;
+    }
+    input[type="text"] {
+      width: 870px; /* Set the width to 300 pixels */
+      height: 90px; /* Set the height to 50 pixels */
+      font-size:30px; /* Set the font size */
+      padding:3px; /* Add some padding for better appearance */
+    }
+    #send{
+    width:80px; /* Set the width to 300 pixels */
+    height:60px; /* Set the height to 50 pixels */
+    font-size:21px; 
+
+    }
+
+  }
+  
+  </style>
+  </head>
+  <body>
+  <h1>Romm name :-{{room.roomname}}</h1>
+  <h2>User:-{{user}}</h2>
+  
+  <div id="messagebox" id="display" class="message-container">
+  
+    <div class="scroll-to-bottom"></div>
+  </div>
+  
+  <form id="sendfield">
+      <input type="hidden" value="{{room.romname}}" id="roomname">
+      <input type="hidden" value="{{user}}" id="username">
+      <input type="text" placeholder="your message" id="messages">
+      <input type="submit" id='send' value='send'>
+  </form>
+  
+  <script>
+      sendform=document.getElementById("sendfield")
+      roomname=document.getElementById("roomname") 
+      username=document.getElementById("username") 
+      messageid=document.getElementById("messages")
+      messagebox=document.getElementById("messagebox")
+      //owner=document.getElementById("owner")
+      //console.log(owner.innerText)
+      console.log(messagebox)
+      console.log(username.value)
+  
+      function scrollToBottom() {
+        messagebox.scrollTop = messagebox.scrollHeight;
+      }
+  let a;
+      setInterval(function(){
+        fetch(`/Refresh_message/?roomname=${roomname.value}`).then(response=>{console.log(response)
+          return response.json()}).then(data=>{
+            console.log(data);
+            messagebox.innerHTML=''
+            console.log(a)
+      
+            
+        for (const element of data.messages) {
+          // Access each element directly
+          //console.log(element);
+          console.log(username.value)
+          const messageClass=username.value===element.user? 'sent':'received';
+          messagebox.insertAdjacentHTML("beforeend",`<div class="message ${messageClass}">${element.message} - ${element.user}</div>`);
+        }
+        if (a!=data.num_messages)
+        {
+          a=data.num_messages;
+          scrollToBottom()
+        }
+        }) .catch(error => {
+          console.log(error);
+        })
+        
+      },1000)
+        //console.log('helo
+      //console.log(roomname.value)
+      //console.log(username.value)
+      //console.log(roomname.value)
+      //let na='chiku'
+      //console.log(messageid.value())
+      sendform.addEventListener('submit',function(e){
+          e.preventDefault()
+          //scrollToBottom()
+         console.log(e)
+         fetch(`/createmessage/?message=${messageid.value}&room=${roomname.value}&name=${username.value}`).then(response => response.json())
+         .then(data => {
+          console.log(data)
+           // Update the like count on the frontend
+           //const likeCountElement = document.getElementById(`like-count-${postId}`);
+           //likeCountElement.textContent = data.likes;
+         })
+         .catch(error => {
+           console.log(error);
+         });
+         messageid.value='';
+         //scrollToBottom()
+         //messageid.value=''
+      })
+      
+      //messageid.value=""
+  </script>    
+  </body>
+  
+  
+  
+  
+  
