@@ -81,7 +81,7 @@ DATABASES = {
         'NAME': 'temperature_9oe8',
         'USER': 'pritimaya',
         'PASSWORD': 'T1cKtb60WX1CRKbqj9LYGCwEui4NhVPK',
-        'HOST': 'postgres://pritimaya:T1cKtb60WX1CRKbqj9LYGCwEui4NhVPK@dpg-cimd8slgkuvgvhf4lse0-a/temperature_9oe8',
+        'HOST': 'dpg-cimd8slgkuvgvhf4lse0-a',
         'PORT': '5432',
     }
 }
