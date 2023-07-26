@@ -77,8 +77,12 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'render',
+        'USER': 'render',
+        'PASSWORD': 'T1cKtb60WX1CRKbqj9LYGCwEui4NhVPK',
+        'HOST': 'postgres://pritimaya:T1cKtb60WX1CRKbqj9LYGCwEui4NhVPK@dpg-cimd8slgkuvgvhf4lse0-a/temperature_9oe8',
+        'PORT': '5432',
     }
 }
 
