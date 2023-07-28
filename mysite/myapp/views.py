@@ -23,9 +23,9 @@ def home(request):
                     messages.info(request,'Please Give correct password')
                     return redirect('/') 
 
-            else:
-               Room.objects.create(roomname=room,roompassword=password)
-               return redirect(f'room/?room={room}&name={user_name}')    
+            
+            Room.objects.create(roomname=room,roompassword=password)
+            return redirect(f'room/?room={room}&name={user_name}')    
     return render(request,'home.html')
             
 
@@ -83,9 +83,9 @@ def room(request):
     print(name)
     print(room)
     my_room=Room.objects.filter(roomname=room).first()
-    allmessages=Message.objects.filter(roomname=my_room.roomname)
+    allmessages=Message.objects.filter(roomname=room)
     context={
-        'room':my_room,
+        'room':room,
         'messages':allmessages,
         'user':name
     }
